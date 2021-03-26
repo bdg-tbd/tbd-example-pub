@@ -1,0 +1,10 @@
+[Credentials]
+gs_service_key_file = $GOOGLE_APPLICATION_CREDENTIALS
+
+[Boto]
+https_validate_certificates = True
+
+[GSUtil]
+
+content_language = en
+default_project_id = $TF_VAR_project_name
