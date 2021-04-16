@@ -97,7 +97,7 @@ object LocalIJRunner {
                     | JOIN $tab2 AS t2 ON
                     | t1.contig = t2.contig AND
                     | t2.pos_end >= t1.pos_start AND
-                    | t2.pos_start <= t1.pos_end limit 10""".stripMargin
+                    | t2.pos_start <= t1.pos_end""".stripMargin
     ss.time{
       logger.info(s"Running SeQuiLa join")
       ss
