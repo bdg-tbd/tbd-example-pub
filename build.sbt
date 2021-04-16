@@ -5,7 +5,7 @@ version := "0.0.1"
 
 scalaVersion := "2.12.10"
 val sparkVersion = "3.0.1"
-val sequilaVersion = "0.6.5"
+val sequilaVersion = "0.6.8"
 
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-hive" % "3.0.1" % "provided"
