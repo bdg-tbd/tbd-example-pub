@@ -5,7 +5,7 @@ version := "0.0.1"
 
 scalaVersion := "2.12.10"
 val sparkVersion = "3.0.1"
-val sequilaVersion = "0.6.8"
+val sequilaVersion = "0.6.10+g4e9a69a-SNAPSHOT"
 
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-hive" % "3.0.1" % "provided"
@@ -18,6 +18,9 @@ libraryDependencies += "com.github.mrpowers" %% "spark-fast-tests" % "1.0.0" % "
 libraryDependencies += "com.holdenkarau" %% "spark-testing-base" % s"${sparkVersion}_1.0.0" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
+resolvers ++= Seq(
+  "zsibio-snapshots" at "https://zsibio.ii.pw.edu.pl/nexus/repository/maven-snapshots/"
+)
 
 // test suite settings
 fork in Test := true

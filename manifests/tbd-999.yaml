@@ -1,0 +1,79 @@
+#
+# Copyright 2017 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: tbd-999
+  namespace: default
+spec:
+  type: Scala
+  mode: cluster
+  image: "docker.io/biodatageeks/spark:v3.0.1-gcs-prometheus"
+  imagePullPolicy: Always
+  sparkConf:
+    "spark.ui.prometheus.enabled": "true"
+    "spark.executor.processTreeMetrics.enabled": "false"
+    "spark.eventLog.logStageExecutorMetrics": "true"
+    "spark.kubernetes.driver.annotation.prometheus.io/scrape": "true"
+    "spark.kubernetes.driver.annotation.prometheus.io/path": "/metrics/prometheus/"
+    "spark.kubernetes.driver.annotation.prometheus.io/port": "4040"
+    "spark.kubernetes.driver.service.annotation.prometheus.io/scrape": "true"
+    "spark.kubernetes.driver.service.annotation.prometheus.io/path": "/metrics/executors/prometheus/"
+    "spark.kubernetes.driver.service.annotation.prometheus.io/port": "4040"
+  mainClass: org.biodatageeks.tbd.Benchmark
+  mainApplicationFile: "gs://tbd-tbd-devel-bench/jars/tbd-example-project-assembly-0.0.1.jar"
+  arguments:
+    - "--left-table-path=gs://tbd-tbd-devel-bench/AIListTestData/chainRn4.bed"
+    - "--left-table-name=left_table"
+    - "--right-table-path=gs://tbd-tbd-devel-bench/AIListTestData/fBrain-DS14718.bed"
+    - "--right-table-name=right_table"
+    - "--interval-holder-class=org.biodatageeks.sequila.rangejoins.methods.IntervalTree.IntervalTreeRedBlack"
+    - "--prometheus-url=prometheus-pushgateway:9091"
+  sparkVersion: "3.0.0"
+  deps:
+    jars:
+      - "local:///prometheus/jmx_prometheus_javaagent-0.11.0.jar"
+  restartPolicy:
+    type: Never
+  volumes:
+    - name: "test-volume"
+      hostPath:
+        path: "/tmp"
+        type: Directory
+  driver:
+    coreRequest: "400m"
+    coreLimit: "450m"
+    memory: "4096m"
+    labels:
+      version: 3.0.0
+      sparkSvc: driver
+    serviceAccount: spark
+    volumeMounts:
+      - name: "test-volume"
+        mountPath: "/tmp"
+  executor:
+    coreRequest: "400m"
+    coreLimit: "450m"
+    instances: 2
+    memory: "1536m"
+    labels:
+      version: 3.0.0
+    volumeMounts:
+      - name: "test-volume"
+        mountPath: "/tmp"
+  monitoring:
+    exposeDriverMetrics: true
+    exposeExecutorMetrics: true

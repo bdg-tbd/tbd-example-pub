@@ -25,9 +25,9 @@ elif [ $MODE == "deploy" ]; then
   echo "Copying assembly jar to GCS..."
   export JAR_FILE=$(find target/ -name "*assembly*.jar")
   #cleanup
-  gsutil rm gs://${TF_VAR_project_name}/jars/baseline/$JAR_FILE
+  gsutil rm gs://${TF_VAR_project_name}-bench/jars/$JAR_FILE
   rm -rf  ~/.gsutil/tracker-files/upload*
-  gsutil cp $JAR_FILE gs://${TF_VAR_project_name}/jars/baseline/
+  gsutil cp $JAR_FILE gs://${TF_VAR_project_name}-bench/jars/
 
 elif [ $MODE == "run" ]; then
 
