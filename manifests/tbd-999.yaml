@@ -36,7 +36,7 @@ spec:
   mainClass: org.biodatageeks.tbd.Benchmark
   mainApplicationFile: "gs://tbd-tbd-devel-bench/jars/tbd-example-project-assembly-0.0.1.jar"
   arguments:
-    - "--left-table-path=gs://tbd-tbd-devel-bench/AIListTestData/chainRn4.bed"
+    - "--left-table-path=gs://tbd-tbd-devel-bench/AIListTestData/exons.bed"
     - "--left-table-name=left_table"
     - "--right-table-path=gs://tbd-tbd-devel-bench/AIListTestData/fBrain-DS14718.bed"
     - "--right-table-name=right_table"

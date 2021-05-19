@@ -80,10 +80,13 @@ useJoinOrder = true
 intervalHolderClassName = org.biodatageeks.sequila.rangejoins.methods.IntervalTree.IntervalTreeRedBlack
 
 ## Broadcast size 
-21/05/18 20:07:52 INFO IntervalTreeJoinOptimChromosomeImpl$: 
-Broadcast structure size is ~ 46551.8 kb
+21/05/19 04:58:31 INFO IntervalTreeJoinOptimChromosomeImpl$: 
+Estimated broadcast structure size is ~ 46551.8 kb
 spark.biodatageeks.rangejoin.maxBroadcastSize is set to 524288 kb"
 Using JoinWithRowBroadcast join method
+
+
+21/05/19 04:58:47 INFO IntervalTreeJoinOptimChromosomeImpl$: Real broadcast size of the interval structure is 44494600 bytes
 
 ```
 

@@ -76,9 +76,14 @@ object Benchmark {
         .sql(query)
         .show()
       stageMetrics.end()
+    val lId = conf.leftTablePath().split('/').last.split('.').head
+    val rId = conf.rightTablePath().split('/').last.split('.').head
+    val algoId = conf.intervalHolderClass().split('.').last
+    val instanceNum = spark.conf.get("spark.executor.instances")
     stageMetrics
       .sendReportPrometheus(
-        conf.prometheusUrl(), s"SeQuiLa-${GROUP_ID}-${conf.intervalHolderClass()}-${spark.conf.get("spark.executor.instances")}",
+        conf.prometheusUrl(),
+        s"SeQuiLa-${GROUP_ID}-${algoId}-${lId}-${rId}-${instanceNum}",
         labelName = "run_id",
         System.currentTimeMillis().toString)
   }
